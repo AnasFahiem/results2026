@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتيجة الثانوية العامة</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>نتيجة الثانوية العامة</h1>
+            <p>ابحث برقم الجلوس أو الاسم</p>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="أدخل رقم الجلوس أو الاسم هنا..." onkeypress="handleKeyPress(event)">
+            <button onclick="performSearch()">بحث</button>
+        </div>
+
+        <div id="loading" class="hidden">جاري البحث...</div>
+        
+        <div id="resultsContainer"></div>
+    </div>
+
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        async function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
+
+            const loading = document.getElementById('loading');
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            loading.classList.remove('hidden');
+            resultsContainer.innerHTML = '';
+
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    resultsContainer.innerHTML = '<div class="no-results">لا توجد نتائج مطابقة لبحثك</div>';
+                } else {
+                    data.forEach(student => {
+                        const card = document.createElement('div');
+                        card.className = 'result-card';
+                        
+                        card.innerHTML = `
+                            <div class="card-header">
+                                <h2>${student.arabic_name}</h2>
+                                <span class="seat-no">رقم الجلوس: ${student.seating_no}</span>
+                            </div>
+                            <div class="card-details">
+                                <div class="detail-item">
+                                    <span class="label">المجموع:</span>
+                                    <span class="value score">${student.total_degree}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">الحالة:</span>
+                                    <span class="value status ${student.student_case_desc && student.student_case_desc.includes('ناجح') ? 'success' : 'other'}">${student.student_case_desc}</span>
+                                </div>
+                            </div>
+                        `;
+                        resultsContainer.appendChild(card);
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                resultsContainer.innerHTML = '<div class="no-results error">حدث خطأ أثناء البحث. يرجى المحاولة مرة أخرى.</div>';
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
