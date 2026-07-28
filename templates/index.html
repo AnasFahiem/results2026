@@ -62,6 +62,9 @@
                         const card = document.createElement('div');
                         card.className = 'result-card';
                         
+                        const degree = parseFloat(student.total_degree);
+                        const percentage = !isNaN(degree) ? ((degree / 320) * 100).toFixed(2) + '%' : '-';
+
                         card.innerHTML = `
                             <div class="card-header">
                                 <h2>${student.arabic_name}</h2>
@@ -71,6 +74,10 @@
                                 <div class="detail-item">
                                     <span class="label">المجموع:</span>
                                     <span class="value score">${student.total_degree}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">النسبة المئوية:</span>
+                                    <span class="value score" style="color: #27ae60;" dir="ltr">${percentage}</span>
                                 </div>
                                 <div class="detail-item">
                                     <span class="label">الحالة:</span>
