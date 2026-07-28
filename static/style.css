@@ -221,23 +221,13 @@ header p {
 
 .dev-footer {
     display: inline-block;
-    margin-top: 2.5rem;
-    padding: 10px 25px;
-    background-color: var(--card-bg);
-    color: var(--primary-color);
+    color: #a0aab2;
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .dev-footer:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.2);
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
