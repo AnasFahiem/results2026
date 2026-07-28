@@ -219,15 +219,22 @@ header p {
     }
 }
 
-.dev-footer {
+.dev-link {
     display: inline-block;
-    color: #a0aab2;
+    color: var(--primary-color);
+    background: #e8f4fd;
+    padding: 6px 16px;
+    border-radius: 20px;
     text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
-.dev-footer:hover {
-    color: var(--primary-color);
+.dev-link:hover {
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.15);
+    transform: translateY(-1px);
 }
