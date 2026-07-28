@@ -238,3 +238,21 @@ header p {
     box-shadow: 0 4px 10px rgba(74, 144, 226, 0.15);
     transform: translateY(-1px);
 }
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f4fd;
+    border-radius: 50%;
+    padding: 6px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.social-icon:hover {
+    background: white;
+    border-color: #25D366;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15);
+    transform: translateY(-2px) scale(1.05);
+}
