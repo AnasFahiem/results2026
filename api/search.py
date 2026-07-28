@@ -1,11 +1,18 @@
-from flask import Flask, request, jsonify
-import sqlite3
-import os
-
-app = Flask(__name__)
-
 import gzip
 import shutil
+import os
+import sqlite3
+from flask import Flask, request, jsonify, render_template
+
+base_dir = os.path.dirname(os.path.dirname(__file__))
+template_dir = os.path.join(base_dir, 'templates')
+static_dir = os.path.join(base_dir, 'static')
+
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 def get_db_connection():
     # Path to the gzipped DB included in the deployment
